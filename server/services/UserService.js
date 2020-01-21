@@ -1,9 +1,17 @@
-import {create, getAll, getById} from '../repositories/UserRepository';
+import {create, getAll, getById, remove, update} from '../repositories/UserRepository';
 import {hash} from 'bcrypt';
 import UUID from 'uuid';
 
 export const getUsers = getAll;
 export const getUserById = getById;
+
+export const updateUser = (user) => {
+    return getUserById(user.id).then((old) => {
+        user.password = old.password;
+        return update(user);
+    });
+};
+
 export const createUser = (user) => {
 
     user.id = UUID.v4();
@@ -14,3 +22,5 @@ export const createUser = (user) => {
         return create(user);
     });
 };
+
+export const removeUser = remove;
