@@ -10,8 +10,7 @@ export const authenticate = ({ id, password }) => {
         return compare(password, user.password)
             .then((result) => {
                 if (result) {
-                    user.permissions = [];
-                    return sign(omit(['password'], user), SECRET)
+                    return sign(omit(['password'], user), SECRET);
                 } else {
                     throw new Error('Something');
                 }

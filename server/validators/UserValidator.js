@@ -25,7 +25,7 @@ export const isValidForEditing = (req, res, next) => {
     const user = req.body;
     const errors = [];
 
-    if (req.user.id !== req.params.id) {
+    if (req.user._id !== req.params.id) {
         errors.push({ level: 'error', code: 'USR0004', message: 'You cheecky bastard, trying to change someone elses stuff' });
     }
 

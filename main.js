@@ -3,13 +3,10 @@ import {PORT} from './server/configuration/configuration';
 import ShowRoutes from './server/routes/ShowRoutes';
 import bodyParser from 'body-parser';
 import UserRoutes from './server/routes/UserRoutes';
-import {initialize} from './server/repositories/UserRepository';
 import AuthenticationRoutes from './server/routes/AuthenticationRoutes';
 import Authentication from './server/middleware/Authentication';
 
 global.DIR = __dirname;
-
-initialize();
 
 const API = Express();
 

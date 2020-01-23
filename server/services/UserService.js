@@ -1,26 +1,26 @@
-import {create, getAll, getById, remove, update} from '../repositories/UserRepository';
+import CrudRepository from '../repositories/CrudRepository';
 import {hash} from 'bcrypt';
-import UUID from 'uuid';
+import UserModel from '../models/UserModel';
 
-export const getUsers = getAll;
-export const getUserById = getById;
+const UserRepository = CrudRepository(UserModel);
+
+export const getUsers = UserRepository.getAll;
+export const getUserById = UserRepository.getById;
 
 export const updateUser = (user) => {
-    return getUserById(user.id).then((old) => {
+    return getUserById(user._id).then((old) => {
         user.password = old.password;
-        return update(user);
+        return UserRepository.update(user);
     });
 };
 
 export const createUser = (user) => {
 
-    user.id = UUID.v4();
-
     return hash(user.password, 2).then((hashed) => {
         user.password = hashed;
 
-        return create(user);
+        return UserRepository.create(user);
     });
 };
 
-export const removeUser = remove;
+export const removeUser = UserRepository.remove;
